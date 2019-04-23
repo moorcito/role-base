@@ -2,6 +2,7 @@
 - name: Update APT
   apt:
     update_cache: yes
+  when: ansible_os_distribution == "Debian"
 
 - name: Install software-properties-common
   apt:
