@@ -1,16 +1,5 @@
 ---
-base_packages:
-  - htop
-  - screen
-  - vim
-  - git
-  - curl
-  - unzip
-  - nfs-common
-  - nmap
-  - net-tools
-  - tree
-  - zsh
+
 
 
 
