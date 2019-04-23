@@ -4,17 +4,23 @@
     name: tilix
     state: latest
 
-- name: Add tilix conditional to .bashrc and .zshrc
+- name: Add tilix conditional to .bashrc
   blockinfile:
-    path: "{{ item }}"
+    path: "/home/{{ ansible_user }}/.bashrc"
     block: |
       if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
       fi
     marker: ""
-  with_items:
-  - "/home/{{ ansible_user }}/.bashrc"
-  - "/home/{{ ansible_user }}/.zshrc"
+
+- name: Add tilix conditional to .zshrc
+  blockinfile:
+    path: "/home/{{ ansible_user }}/.zshrc"
+    block: |
+      if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+      fi
+    marker: ""
 
 - name: Create tilix symbolic link
   file:
