@@ -50,12 +50,12 @@
   when: ansible_os_distribution == "Debian"
 
 - name: Create docker group
-	group:
+  group:
     name: docker
     state: present
 
 - name: Add user {{ ansible_user }} to docker group
-	user:
+  user:
     name: "{{ ansible_user }}"
     groups: docker
     append: yes
