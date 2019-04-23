@@ -37,9 +37,6 @@
     name: "{{ base_packages }}"
     state: latest
 
-#- name: Include ansible installation tasks
-#  include_tasks: ansible-install.yml
-
 #- name: Include docker installation tasks
 #  include_tasks: docker-install.yml
 
