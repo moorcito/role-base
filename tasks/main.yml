@@ -1,0 +1,57 @@
+---
+#Distro agnostic tasks go here
+- name: Disallow SSH password connections
+  lineinfile:
+          path: /etc/ssh/sshd_config
+          regexp: '^PermitRootLogin'
+          line: 'PermitRootLogin without-password'
+
+- name: Restart SSH service
+  systemd:
+          name: sshd
+          state: restarted
+
+- name: Download Netdata installation script
+  get_url:
+          url: https://my-netdata.io/kickstart.sh
+          dest: /tmp/netdata-install.sh
+          mode: 0744
+
+- name: Run Netdata installation script
+  shell: /tmp/netdata-install.sh --dont-wait
+  args:
+          creates: /etc/netdata/netdata.conf
+
+- name: Install aptitude
+  apt:
+    name: aptitude
+    state: latest
+
+- name: Update APT
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install base packages
+  apt:
+    name: "{{ base_packages }}"
+    state: latest
+
+- name: Install desktop packages
+  apt:
+    name: "{{ desktop_packages }}"
+    state: latest
+  when: desktop_machine is true
+
+- name: Include sublime installation tasks
+  include_tasks: sublime-install.yml
+  when: desktop_machine is true
+
+- name: Include ansible installation tasks
+  include_tasks: ansible-install.yml
+
+- name: Include docker installation tasks
+  include_tasks: docker-install.yml
+
+- name: Include unattended-upgrades tasks
+  include_tasks: unattended-upgrades.yml

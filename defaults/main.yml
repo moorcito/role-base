@@ -1,0 +1,22 @@
+---
+base_packages:
+  - htop
+  - screen
+  - vim
+  - git
+  - curl
+  - unzip
+  - nfs-common
+  - nmap
+  - net-tools
+
+desktop_packages:
+  - firefox
+  - chromium-browser
+  - vlc
+  - deluge
+  - keepassxc
+  - gimp
+  - x11vnc
+  - virtualbox
+
