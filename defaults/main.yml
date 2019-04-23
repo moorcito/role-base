@@ -12,13 +12,5 @@ base_packages:
   - tree
   - zsh
 
-desktop_packages:
-  - firefox
-  - chromium-browser
-  - vlc
-  - deluge
-  - keepassxc
-  - gimp
-  - x11vnc
-  - virtualbox
+
 

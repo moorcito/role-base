@@ -37,27 +37,11 @@
     name: "{{ base_packages }}"
     state: latest
 
-- name: Install desktop packages
-  apt:
-    name: "{{ desktop_packages }}"
-    state: latest
-  when: desktop_machine == True
+#- name: Include ansible installation tasks
+#  include_tasks: ansible-install.yml
 
-#- name: Include oh-my-zsh installation tasks
-#  include_tasks: ohmyzsh-install.yml
-
-#- name: Include tilix installation tasks
-#  include_tasks: tilix-install.yml
-
-- name: Include sublime installation tasks
-  include_tasks: sublime-install.yml
-  when: desktop_machine == True
-
-- name: Include ansible installation tasks
-  include_tasks: ansible-install.yml
-
-- name: Include docker installation tasks
-  include_tasks: docker-install.yml
+#- name: Include docker installation tasks
+#  include_tasks: docker-install.yml
 
 - name: Include unattended-upgrades tasks
   include_tasks: unattended-upgrades.yml
