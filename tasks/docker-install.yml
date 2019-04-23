@@ -39,29 +39,29 @@
 
 - name: Update APT and install Docker CE
   apt:
-  	name: "{{ necesary_docker_packages }}"
-  	state: latest
-  	update_cache: yes
+    name: "{{ necesary_docker_packages }}"
+    state: latest
+    update_cache: yes
   vars:
-  	necesary_docker_packages:
-  		- docker-ce
-  		- docker-ce-cli
-  		- containerd.io
+    necesary_docker_packages:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
   when: ansible_os_distribution == "Debian"
 
 - name: Create docker group
 	group:
-		name: docker
-		state: present
+    name: docker
+    state: present
 
 - name: Add user {{ ansible_user }} to docker group
 	user:
-		name: "{{ ansible_user }}"
-		groups: docker
-		append: yes
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
 
 - name: Start and enable Docker service
-	systemd:
-		name: docker
-		state: started
-		enabled: yes
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
