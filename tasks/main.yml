@@ -43,11 +43,11 @@
     state: latest
   when: desktop_machine == True
 
-- name: Include oh-my-zsh installation tasks
-  include_tasks: ohmyzsh-install.yml
+#- name: Include oh-my-zsh installation tasks
+#  include_tasks: ohmyzsh-install.yml
 
-- name: Include tilix installation tasks
-  include_tasks: tilix-install.yml
+#- name: Include tilix installation tasks
+#  include_tasks: tilix-install.yml
 
 - name: Include sublime installation tasks
   include_tasks: sublime-install.yml
