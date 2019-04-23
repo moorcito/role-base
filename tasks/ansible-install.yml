@@ -2,7 +2,7 @@
 - name: Update APT
   apt:
     update_cache: yes
-  when: ansible_os_distribution == "Debian"
+  when: ansible_os_family == "Debian"
 
 - name: Install software-properties-common
   apt:
@@ -15,6 +15,12 @@
     repo: ppa:ansible/ansible
   when: ansible_distribution == "Debian"
 
+- name: Add Ansible APT key from keyserver for Ubuntu servers
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 93C4A3FD7BB9C367
+  when: ansible_distribution == "Ubuntu"
+
 - name: Add Ansible repository for Ubuntu servers
   apt_repository:
     repo: "deb http://ppa.launchpad.net/ansible/ansible/ubuntu {{ ansible_distribution_release }} main"
@@ -22,15 +28,9 @@
     filename: ansible
   when: ansible_distribution == "Ubuntu"
 
-- name: Add Ansible APT key from keyserver for Ubuntu servers
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 93C4A3FD7BB9C367
-  when: ansible_distribution == "Ubuntu"
-
 - name: Update APT and install Ansible
   apt:
     name: ansible
     state: latest
     update_cache: yes
-  when: ansible_os_distribution == "Debian"
+  when: ansible_os_family == "Debian"
