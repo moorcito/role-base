@@ -1,0 +1,23 @@
+---
+- name: Install tilix
+  apt:
+    name: tilix
+    state: latest
+
+- name: Add tilix conditional to .bashrc and .zshrc
+  blockinfile:
+    path: "{{ item }}"
+    block: |
+      if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+      fi
+    marker: ""
+  with_items:
+  - "/home/{{ ansible_user }}/.bashrc"
+  - "/home/{{ ansible_user }}/.zshrc"
+
+- name: Create tilix symbolic link
+  file:
+    src: /etc/profile.d/vte-2.91.sh
+    dest: /etc/profile.d/vte.sh
+    state: link

@@ -1,0 +1,19 @@
+---
+- name: Ensure zsh is installed
+  apt:
+    name: zsh
+    state: latest
+
+- name: Download installation script
+  get_url:
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/oh-my-zsh-install.sh
+
+- name: Run oh-my-zsh installation script
+  command: /tmp/oh-my-zsh-install.sh
+
+- name: Change prompt color
+  lineinfile:
+    path: "/home/{{ ansible_user }}/.oh-my-zsh/themes/robbyrussell.zsh-theme"
+    regexp: '^PROMPT'
+    line: "PROMPT='%{$fg_bold[black]%}%M ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'"

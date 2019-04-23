@@ -10,6 +10,7 @@ base_packages:
   - nmap
   - net-tools
   - tree
+  - zsh
 
 desktop_packages:
   - firefox
