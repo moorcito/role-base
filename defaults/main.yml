@@ -9,6 +9,7 @@ base_packages:
   - nfs-common
   - nmap
   - net-tools
+  - tree
 
 desktop_packages:
   - firefox
