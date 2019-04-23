@@ -18,4 +18,3 @@
     systemd:
             name: unattended-upgrades
             state: restarted
-  when: ansible_os_distribution == "Debian"
