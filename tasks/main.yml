@@ -11,6 +11,17 @@
     name: sshd
     state: restarted
 
+- name: Minimum swapiness
+  lineinfile:
+    path: /etc/sysctl.conf
+    regexp: "^vm.swappiness"
+    line: "vm.swappiness = 10"
+  register: swapiness
+
+- name: Commit swapiness changes
+  command: "sysctl vm.swappiness=10"
+  when: swapiness.changed
+
 - name: Download Netdata installation script
   get_url:
     url: https://my-netdata.io/kickstart.sh
