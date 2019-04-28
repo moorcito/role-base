@@ -61,8 +61,5 @@
       - tree
       - zsh
 
-#- name: Include docker installation tasks
-#  include_tasks: docker-install.yml
-
 - name: Include unattended-upgrades tasks
   include_tasks: unattended-upgrades.yml
