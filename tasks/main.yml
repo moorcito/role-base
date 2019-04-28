@@ -22,6 +22,17 @@
   command: "sysctl vm.swappiness=10"
   when: swapiness.changed
 
+- name: Check if kernel supports KSM
+  stat:
+    path: /sys/kernel/mm/ksm/run
+  register: ksm_run
+
+- name: Enable KSM if available
+  copy:
+    content: "1"
+    dest: /sys/kernel/mm/ksm/run
+  when: ksm_run.exists
+
 - name: Download Netdata installation script
   get_url:
     url: https://my-netdata.io/kickstart.sh
