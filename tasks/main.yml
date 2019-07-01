@@ -30,27 +30,3 @@
     name: aptitude
     state: latest
 
-- name: Update APT
-  apt:
-    name: "*"
-    state: latest
-
-- name: Install base packages
-  apt:
-    name: "{{ base_packages }}"
-    state: latest
-  vars:
-    base_packages:
-      - htop
-      - screen
-      - vim
-      - git
-      - curl
-      - unzip
-      - nmap
-      - net-tools
-      - bash-completion
-      - locate
-
-- name: Include unattended-upgrades tasks
-  include_tasks: unattended-upgrades.yml
