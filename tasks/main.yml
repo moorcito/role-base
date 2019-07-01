@@ -11,28 +11,6 @@
     name: sshd
     state: restarted
 
-- name: Minimum swapiness
-  lineinfile:
-    path: /etc/sysctl.conf
-    regexp: "^vm.swappiness"
-    line: "vm.swappiness = 10"
-  register: swapiness
-
-- name: Commit swapiness changes
-  command: "sysctl vm.swappiness=10"
-  when: swapiness.changed
-
-- name: Check if kernel supports KSM
-  stat:
-    path: /sys/kernel/mm/ksm/run
-  register: ksm_run
-
-- name: Enable KSM if available
-  copy:
-    content: "1"
-    dest: /sys/kernel/mm/ksm/run
-  when: ksm_run.exists
-
 - name: Download Netdata installation script
   get_url:
     url: https://my-netdata.io/kickstart.sh
@@ -43,6 +21,9 @@
   shell: /tmp/netdata-install.sh --dont-wait
   args:
     creates: /etc/netdata/netdata.conf
+
+- name: Include distro specific tasks
+  include: "{{ ansible_os_family|lower }}.yml"
 
 - name: Install aptitude
   apt:
@@ -66,11 +47,10 @@
       - git
       - curl
       - unzip
-      - nfs-common
       - nmap
       - net-tools
-      - tree
-      - zsh
+      - bash-completion
+      - locate
 
 - name: Include unattended-upgrades tasks
   include_tasks: unattended-upgrades.yml
