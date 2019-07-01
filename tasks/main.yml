@@ -1,5 +1,9 @@
 ---
 #Distro agnostic tasks go here
+- name: Change hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
 - name: Disallow SSH password connections
   lineinfile:
     path: /etc/ssh/sshd_config

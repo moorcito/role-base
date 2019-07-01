@@ -1,5 +1,17 @@
 ---
+common_packages:
+  - htop
+  - screen
+  - vim
+  - git
+  - curl
+  - unzip
+  - nmap
+  - net-tools
+  - bash-completion
 
+debian_packages:
+  - locate
 
-
-
+redhat_packages:
+  - mlocate
