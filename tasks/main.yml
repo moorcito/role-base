@@ -5,10 +5,9 @@
     name: "{{ inventory_hostname }}"
 
 - name: Disallow SSH password connections
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    regexp: '^PermitRootLogin'
-    line: 'PermitRootLogin without-password'
+  copy:
+    src: files/sshd_config
+    dest: /etc/ssh/sshd_config
 
 - name: Restart SSH service
   systemd:
