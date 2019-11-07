@@ -14,8 +14,14 @@
     name: sshd
     state: restarted
 
+- name: Check if /etc/netdata exists
+  stat:
+    path: /etc/netdata
+  register: stat_netdata
+
 - name: Install Netdata
   raw: "bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait"
+  when: stat_netdata.stat.exists == False
 
 - name: Include distro specific tasks
   include: "{{ ansible_os_family|lower }}.yml"
