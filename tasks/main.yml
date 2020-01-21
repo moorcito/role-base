@@ -8,20 +8,30 @@
   copy:
     src: files/sshd_config
     dest: /etc/ssh/sshd_config
+  become: true
 
 - name: Restart SSH service
   systemd:
     name: sshd
     state: restarted
+  become: true
 
 - name: Check if /etc/netdata exists
   stat:
     path: /etc/netdata
   register: stat_netdata
 
+- name: Download Netdata installation script
+  get_url:
+    url: https://my-netdata.io/kickstart.sh
+    dest: /tmp/netdata-installation-script.sh
+    mode: 0755
+  when: stat_netdata.stat.exists|default(false)|bool == false
+
 - name: Install Netdata
-  raw: "bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait"
-  when: stat_netdata.stat.exists == False
+  command: /tmp/netdata-installation-script.sh --dont-wait
+  when: stat_netdata.stat.exists|default(false)|bool == false
+  become: true
 
 - name: Include distro specific tasks
   include: "{{ ansible_os_family|lower }}.yml"

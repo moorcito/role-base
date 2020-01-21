@@ -3,6 +3,7 @@
   apt:
     name: unattended-upgrades
     state: latest
+  become: true
 
 - name: Copy unattended-upgrades configuration files
   copy:
@@ -12,9 +13,10 @@
   with_items:
   - 50unattended-upgrades
   - 20auto-upgrades
+  become: true
 
 - name: Restart unattended-upgrades service
   systemd:
     name: unattended-upgrades
     state: restarted
-
+  become: true

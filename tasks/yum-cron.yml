@@ -3,15 +3,18 @@
   yum:
     name: yum-cron
     state: latest
+  become: true
 
 - name: Edit yum-cron configuration
   lineinfile:
     path: /etc/yum/yum-cron.conf
     regexp: "^apply_updates ="
     line: "apply_updates = yes"
+  become: true
 
 - name: Restart yum-cron
   systemd:
     name: yum-cron
     state: restarted
+  become: true
 

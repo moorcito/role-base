@@ -3,16 +3,19 @@
   apt:
     name: aptitude
     state: latest
+  become: true
 
 - name: Update APT
   apt:
     name: "*"
     state: latest
+  become: true
 
 - name: Install packages
   apt:
     name: "{{ common_packages + debian_packages }}"
     state: latest
+  become: true
 
 - name: Include unattended-upgrades tasks
   include_tasks: unattended-upgrades.yml
